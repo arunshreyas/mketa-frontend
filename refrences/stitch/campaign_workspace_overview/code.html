@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-primary": "#6d3bd7",
+                        "primary-fixed": "#e9ddff",
+                        "surface-container-low": "#181c21",
+                        "surface-container-lowest": "#0a0e13",
+                        "tertiary-fixed-dim": "#ddb8ff",
+                        "secondary-fixed": "#d8e2ff",
+                        "error": "#ffb4ab",
+                        "on-surface": "#e0e2ea",
+                        "primary-container": "#a078ff",
+                        "outline-variant": "#464554",
+                        "surface-container-high": "#262a30",
+                        "on-primary": "#3c0091",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary-fixed": "#001a42",
+                        "primary-fixed-dim": "#d0bcff",
+                        "tertiary-container": "#b175ec",
+                        "outline": "#908fa0",
+                        "tertiary-fixed": "#f0dbff",
+                        "surface-tint": "#d0bcff",
+                        "on-secondary-container": "#e6ecff",
+                        "tertiary": "#ddb8ff",
+                        "on-tertiary-fixed-variant": "#62259b",
+                        "on-tertiary-fixed": "#2c0051",
+                        "background": "#101419",
+                        "inverse-on-surface": "#2d3136",
+                        "secondary-container": "#0566d9",
+                        "surface-container-highest": "#31353b",
+                        "surface-dim": "#101419",
+                        "on-tertiary": "#490081",
+                        "inverse-surface": "#e0e2ea",
+                        "on-surface-variant": "#c7c4d7",
+                        "on-tertiary-container": "#400071",
+                        "error-container": "#93000a",
+                        "on-primary-fixed-variant": "#5516be",
+                        "on-secondary": "#002e6a",
+                        "surface": "#101419",
+                        "surface-container": "#1c2025",
+                        "on-primary-container": "#340080",
+                        "surface-bright": "#36393f",
+                        "secondary": "#adc6ff",
+                        "on-background": "#e0e2ea",
+                        "secondary-fixed-dim": "#adc6ff",
+                        "surface-variant": "#31353b",
+                        "primary": "#d0bcff",
+                        "on-primary-fixed": "#23005c",
+                        "on-secondary-fixed-variant": "#004395",
+                        "on-error": "#690005"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { background-color: #0B0F14; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .synthetic-glow { box-shadow: 0 0 40px -10px rgba(99, 102, 241, 0.15); }
+        .glass-panel { backdrop-filter: blur(20px); background: rgba(24, 28, 33, 0.8); }
+        .text-gradient { background: linear-gradient(to right, #d0bcff, #adc6ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    </style>
+</head>
+<body class="font-body text-on-surface bg-[#0B0F14] selection:bg-primary-container selection:text-on-primary-container">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full z-40 flex flex-col p-4 bg-[#0B0F14] dark:bg-[#0B0F14] w-64 border-r border-white/5">
+<div class="flex flex-col gap-2 mb-8 px-4">
+<span class="text-xl font-bold tracking-tighter text-indigo-400 font-headline">Marketa AI</span>
+<span class="text-[10px] uppercase tracking-widest text-slate-500 font-medium">Intelligence Interface</span>
+</div>
+<nav class="flex flex-col gap-2 flex-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-white/5 hover:text-white transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="text-sm font-semibold tracking-tight font-label">Clients</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-indigo-500/10 text-indigo-400 shadow-[0_0_15px_rgba(99,102,241,0.2)] border border-indigo-500/20" href="#">
+<span class="material-symbols-outlined" data-icon="campaign" style="font-variation-settings: 'FILL' 1;">campaign</span>
+<span class="text-sm font-semibold tracking-tight font-label">Campaigns</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-white/5 hover:text-white transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="filter_alt">filter_alt</span>
+<span class="text-sm font-semibold tracking-tight font-label">AI Funnels</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-white/5 hover:text-white transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+<span class="text-sm font-semibold tracking-tight font-label">Generate Content</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-white/5 hover:text-white transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="insights">insights</span>
+<span class="text-sm font-semibold tracking-tight font-label">Growth Ops</span>
+</a>
+</nav>
+<div class="mt-auto pt-6">
+<button class="w-full py-4 rounded-xl bg-gradient-to-br from-indigo-500 to-primary-container text-on-primary-container font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/20 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-sm">add_circle</span>
+                New Campaign
+            </button>
+</div>
+</aside>
+<!-- Main Viewport -->
+<div class="ml-64 flex flex-col min-h-screen">
+<!-- TopNavBar -->
+<header class="sticky top-0 w-full z-30 bg-[#0B0F14]/80 backdrop-blur-xl border-b border-white/10 h-16 flex justify-between items-center px-8">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-lg">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full py-2 pl-10 pr-4 text-sm text-on-surface focus:ring-1 focus:ring-indigo-500 transition-all" placeholder="Search campaign assets..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="text-slate-400 hover:text-indigo-300 transition-colors relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-primary rounded-full"></span>
+</button>
+<button class="text-slate-400 hover:text-indigo-300 transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<div class="h-8 w-8 rounded-full overflow-hidden border border-indigo-500/30">
+<img alt="User Profile Avatar" class="w-full h-full object-cover" data-alt="close-up portrait of a professional male creative director with sharp features and thoughtful expression in studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4nKWrLYjEjfAUjYmLbiM0REVWhGYY3CYwbj0IYD4OeBChfM575Vh0fBuJzbjt_tAZ3KT2HwXiwU-ET8pBcOz8ctQISFlPELxY3CwBS0PDWeCq13VHt6FW_b7CoktPmNs1KW36v7PAD3cVxWTGBLoftL-H21H_a49g4ub2rq4dBNP-maBou_JQJDAGWNlbbcfiHqUygBFRZHFOrBlCZJDpHDf0mMZbg1x12Y9Z1YsXOdBlilOV-5mY7u2E6cLymZMziI5z_-HFyVfm"/>
+</div>
+</div>
+</header>
+<!-- Workspace Header & Sub-Nav -->
+<main class="flex-1 p-8">
+<section class="mb-10">
+<div class="flex items-end justify-between mb-8">
+<div>
+<h1 class="font-headline text-4xl font-extrabold tracking-tight text-on-surface mb-2">Summer Launch 2024</h1>
+<p class="text-slate-400 text-sm flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-green-500"></span>
+                            Active AI Optimization Running
+                        </p>
+</div>
+<div class="flex gap-3">
+<button class="px-6 py-3 rounded-lg bg-surface-container-highest border border-white/5 text-sm font-semibold hover:bg-surface-bright transition-colors">Edit Settings</button>
+<button class="px-6 py-3 rounded-lg bg-indigo-500 text-white text-sm font-semibold shadow-lg shadow-indigo-500/20 hover:bg-indigo-400 transition-colors">Launch Copilot</button>
+</div>
+</div>
+<!-- Workspace Sub-Navigation -->
+<nav class="flex gap-8 border-b border-white/5">
+<a class="pb-4 text-sm font-bold text-indigo-400 border-b-2 border-indigo-400" href="#">Overview</a>
+<a class="pb-4 text-sm font-medium text-slate-400 hover:text-on-surface transition-colors" href="#">Content</a>
+<a class="pb-4 text-sm font-medium text-slate-400 hover:text-on-surface transition-colors" href="#">Funnel</a>
+<a class="pb-4 text-sm font-medium text-slate-400 hover:text-on-surface transition-colors" href="#">Website</a>
+<a class="pb-4 text-sm font-medium text-slate-400 hover:text-on-surface transition-colors" href="#">Flyer</a>
+<a class="pb-4 text-sm font-medium text-slate-400 hover:text-on-surface transition-colors" href="#">Account</a>
+<a class="pb-4 text-sm font-medium text-slate-400 hover:text-on-surface transition-colors" href="#">Leads</a>
+<a class="pb-4 text-sm font-medium text-slate-400 hover:text-on-surface transition-colors" href="#">Copilot</a>
+</nav>
+</section>
+<!-- KPI Cards -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+<div class="bg-surface-container-low p-6 rounded-lg border border-white/5 synthetic-glow">
+<p class="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-4">Total Spend</p>
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-headline font-bold text-on-surface">$12,402</span>
+<span class="text-xs text-green-400 font-medium">+2.4%</span>
+</div>
+</div>
+<div class="bg-surface-container-low p-6 rounded-lg border border-white/5 synthetic-glow">
+<p class="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-4">Conversions</p>
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-headline font-bold text-on-surface">1,842</span>
+<span class="text-xs text-green-400 font-medium">+14.1%</span>
+</div>
+</div>
+<div class="bg-surface-container-low p-6 rounded-lg border border-white/5 synthetic-glow">
+<p class="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-4">Avg. ROAS</p>
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-headline font-bold text-indigo-400">4.8x</span>
+<span class="text-xs text-indigo-300 font-medium">Optimal</span>
+</div>
+</div>
+<div class="bg-surface-container-low p-6 rounded-lg border border-white/5 synthetic-glow bg-gradient-to-br from-surface-container-low to-indigo-900/10">
+<p class="text-xs font-semibold text-indigo-300 uppercase tracking-widest mb-4 flex items-center gap-2">
+                        AI Efficiency
+                        <span class="material-symbols-outlined text-xs">auto_awesome</span>
+</p>
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-headline font-bold text-on-surface">92%</span>
+<span class="text-xs text-indigo-300 font-medium">Automated</span>
+</div>
+</div>
+</div>
+<!-- Dashboard Layout -->
+<div class="grid grid-cols-12 gap-8">
+<!-- Campaign Summary Panel -->
+<div class="col-span-12 lg:col-span-8">
+<div class="bg-surface-container rounded-xl p-8 border border-white/5 h-full">
+<div class="flex justify-between items-start mb-10">
+<div>
+<h3 class="font-headline text-xl font-bold mb-1">Campaign Performance Matrix</h3>
+<p class="text-sm text-slate-400">Real-time engagement tracking across all channels.</p>
+</div>
+<div class="flex gap-2">
+<span class="px-3 py-1 rounded-full bg-surface-container-highest text-[10px] font-bold text-slate-400">DAILY</span>
+<span class="px-3 py-1 rounded-full bg-indigo-500/20 text-[10px] font-bold text-indigo-300">WEEKLY</span>
+</div>
+</div>
+<!-- Visual Data Placeholder -->
+<div class="relative aspect-[21/9] w-full rounded-2xl overflow-hidden bg-surface-container-lowest border border-white/5 flex items-center justify-center group">
+<div class="absolute inset-0 opacity-20 pointer-events-none">
+<div class="w-full h-full bg-[radial-gradient(circle_at_50%_50%,_#4f46e5_0%,_transparent_70%)]"></div>
+</div>
+<div class="flex flex-col items-center gap-4">
+<span class="material-symbols-outlined text-indigo-400 text-5xl">bar_chart</span>
+<p class="text-indigo-300 font-medium tracking-tight">Generating visualization from training data...</p>
+</div>
+<!-- Static Overlay Graphic -->
+<div class="absolute bottom-0 left-0 w-full h-1/2 flex items-end px-8 pb-8 gap-1">
+<div class="w-full bg-indigo-500/40 rounded-t-sm h-[40%] transition-all group-hover:h-[60%]"></div>
+<div class="w-full bg-indigo-500/40 rounded-t-sm h-[60%] transition-all group-hover:h-[80%]"></div>
+<div class="w-full bg-indigo-500/40 rounded-t-sm h-[30%] transition-all group-hover:h-[40%]"></div>
+<div class="w-full bg-indigo-500/60 rounded-t-sm h-[70%] transition-all group-hover:h-[90%]"></div>
+<div class="w-full bg-indigo-500/40 rounded-t-sm h-[45%] transition-all group-hover:h-[55%]"></div>
+<div class="w-full bg-indigo-500/50 rounded-t-sm h-[85%] transition-all group-hover:h-[95%]"></div>
+<div class="w-full bg-indigo-500/40 rounded-t-sm h-[50%] transition-all group-hover:h-[70%]"></div>
+<div class="w-full bg-indigo-500/60 rounded-t-sm h-[65%] transition-all group-hover:h-[80%]"></div>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-8 mt-10">
+<div>
+<p class="text-[10px] font-bold text-slate-500 uppercase mb-2">Impressions</p>
+<p class="text-xl font-headline font-bold">1.2M</p>
+</div>
+<div>
+<p class="text-[10px] font-bold text-slate-500 uppercase mb-2">Engagement Rate</p>
+<p class="text-xl font-headline font-bold">4.2%</p>
+</div>
+<div>
+<p class="text-[10px] font-bold text-slate-500 uppercase mb-2">Cost Per Result</p>
+<p class="text-xl font-headline font-bold">$0.42</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Activity Timeline -->
+<div class="col-span-12 lg:col-span-4">
+<div class="bg-surface-container rounded-xl p-8 border border-white/5 h-full">
+<div class="flex items-center justify-between mb-8">
+<h3 class="font-headline text-xl font-bold">Activity</h3>
+<button class="text-xs font-bold text-indigo-400 hover:text-indigo-300">View All</button>
+</div>
+<div class="space-y-8 relative">
+<!-- Timeline Line -->
+<div class="absolute left-3 top-2 bottom-2 w-px bg-white/5"></div>
+<!-- Timeline Item 1 -->
+<div class="relative pl-10">
+<div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px] text-indigo-400" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<p class="text-sm font-semibold text-on-surface mb-1">AI generated 5 content pieces</p>
+<p class="text-xs text-slate-500 mb-2">Creative assets for Instagram &amp; LinkedIn</p>
+<span class="text-[10px] font-bold text-slate-600 uppercase">12 mins ago</span>
+</div>
+<!-- Timeline Item 2 -->
+<div class="relative pl-10">
+<div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-green-500/20 border border-green-500/40 flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px] text-green-400" data-icon="person_add">person_add</span>
+</div>
+<p class="text-sm font-semibold text-on-surface mb-1">New lead captured</p>
+<p class="text-xs text-slate-500 mb-2">via Summer Promo Landing Page</p>
+<span class="text-[10px] font-bold text-slate-600 uppercase">45 mins ago</span>
+</div>
+<!-- Timeline Item 3 -->
+<div class="relative pl-10">
+<div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px] text-primary" data-icon="rocket_launch">rocket_launch</span>
+</div>
+<p class="text-sm font-semibold text-on-surface mb-1">Campaign Scaled</p>
+<p class="text-xs text-slate-500 mb-2">Daily budget increased by 20%</p>
+<span class="text-[10px] font-bold text-slate-600 uppercase">2 hours ago</span>
+</div>
+<!-- Timeline Item 4 -->
+<div class="relative pl-10 opacity-60">
+<div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-surface-container-highest border border-white/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px] text-slate-400" data-icon="mail">mail</span>
+</div>
+<p class="text-sm font-semibold text-on-surface mb-1">Email Sequence Drafted</p>
+<p class="text-xs text-slate-500 mb-2">Waiting for approval</p>
+<span class="text-[10px] font-bold text-slate-600 uppercase">Yesterday</span>
+</div>
+</div>
+<!-- AI Suggestion Box -->
+<div class="mt-12 p-4 rounded-xl bg-indigo-500/5 border border-indigo-500/10">
+<div class="flex gap-3 items-start">
+<span class="material-symbols-outlined text-indigo-400 text-lg">lightbulb</span>
+<div>
+<p class="text-xs font-bold text-indigo-300 uppercase mb-1">AI Recommendation</p>
+<p class="text-xs text-slate-300 leading-relaxed">Engagement is peaking on LinkedIn. Increase ad frequency by 1.2x for maximum reach.</p>
+<button class="mt-3 text-[10px] font-extrabold text-white bg-indigo-500 px-3 py-1 rounded shadow-sm">APPLY NOW</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Quick Access Assets -->
+<section class="mt-12">
+<h3 class="font-headline text-xl font-bold mb-6">Recent Creative Assets</h3>
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+<div class="group relative aspect-square rounded-xl overflow-hidden cursor-pointer border border-white/5">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="abstract 3d digital art featuring flowing purple and blue silk-like structures with soft lighting and minimalist composition" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-lYFcHDmUYb-xaO-qV3xeDmavNiOWg31_XBH_0-F2ToB-XvFUTiHhPaPIh9XxdfOpMeLEIkDavKvDstLhBWkOLPXREARSg_uTSFXtdly7gLG3nVHuz0XTR74tuoYLSkhQ7OWg-9qZQvMF-ds1lIw83GtN8yOXijCAOIkKvFX9bxoxlOLd7mUQ-wA3TfClEpqasbrzqWs3fc6ocxC2Y8ljlNL0SE2LHO_kMvIZCBEYIyw2cl7f892DbZ6ELbEytXD5N0EfDNDEcHxi"/>
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="material-symbols-outlined text-white">visibility</span>
+</div>
+</div>
+<div class="group relative aspect-square rounded-xl overflow-hidden cursor-pointer border border-white/5">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="vibrant neon geometric patterns floating in dark space with lens flare and futuristic cyber aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJ1v38rc4TBfFDL5-8ZQMDYXmDdRLrT9eWOM9CDsWYUGf8Slfa60kmWr6l77wC7bHV5ckSSMz9yK5Gjc6tMHzcU1xy8VzaHHMdTzSkndRb02kJkwmf6F_UQ72MsmxavM1ywGy6Mo5Qdt6211_rT3sviHi8WEWuI6pyLZCQBse56FTjxUtxu0VH0MLajgGc7mO504s5MbkHb0uaVrV2fxLzTaCUik7If4Bl-qS7i4BBNCst4xDqeo-oaSyPTVGYHZe9jjLXw0nRnt9x"/>
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="material-symbols-outlined text-white">visibility</span>
+</div>
+</div>
+<div class="group relative aspect-square rounded-xl overflow-hidden cursor-pointer border border-white/5">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="smooth gradient background with ethereal light leak effects in shades of deep indigo and electric violet" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAP49U6F9i4w_ZlEAPTo8s_fq7CdcyWViiKSH_w7gxYL7LVqDEfP9BhCbi0qX9TR8nkT9tQDdTuJLZ-cJwjAzQTlrbb4-2Nr_cv0tU8UNKSnmFeZw5C_kCHd83WL9X7z6sbaci9e7-Yjnn2zHVlzdU3cx2zlO_lBj7fh_c8lL7owD6UCBC218bEpEcfbKgk4nVOcKLubvfHu_I_ZZze7z7i6yvAjJ4XzSki2WQDQaw4mEK3_PlCnQFkEsrEBUPo5SuhgXsXrSJj24EO"/>
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="material-symbols-outlined text-white">visibility</span>
+</div>
+</div>
+<div class="group relative aspect-square rounded-xl overflow-hidden cursor-pointer border border-white/5">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="minimalist 3d render of soft pillowy shapes in a dark moody environment with subtle rim lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAp-jnspngHA30DOX_vnSxxY4ykDf6PdtC4uOXju-mGHRoXMHSnqYLQ7EFV2a1bRXAfZYft8MTTX6IMmgzC2W_fLuHh4nK8V2slsyMIPkMhHJUc4qTFltOIuGdjSXgdBaf8tLcm_KCw2qAl51NWW0wkttnKFXOYHT0pt-O2i0oFkjUmFEqUiNE66pX2P4Fm0727ueBIX-SgxmMECUpkxEMU6iRBjLaN1UXhlp56ZKjUnjQgi90UuP89sCe_q_gI5WkqVUsqNBrsQ3-j"/>
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="material-symbols-outlined text-white">visibility</span>
+</div>
+</div>
+<div class="group relative aspect-square rounded-xl overflow-hidden border-2 border-dashed border-white/10 flex flex-col items-center justify-center hover:border-indigo-500/40 transition-colors">
+<span class="material-symbols-outlined text-slate-500 mb-2">add</span>
+<span class="text-[10px] font-bold text-slate-500 uppercase">Generate New</span>
+</div>
+<div class="group relative aspect-square rounded-xl overflow-hidden border-2 border-dashed border-white/10 flex flex-col items-center justify-center hover:border-indigo-500/40 transition-colors">
+<span class="material-symbols-outlined text-slate-500 mb-2">upload</span>
+<span class="text-[10px] font-bold text-slate-500 uppercase">Upload Asset</span>
+</div>
+</div>
+</section>
+</main>
+</div>
+</body></html>

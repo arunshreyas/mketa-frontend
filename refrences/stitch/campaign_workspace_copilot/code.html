@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Marketa AI | Campaign Workspace - Copilot</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-primary": "#6d3bd7",
+                        "primary-fixed": "#e9ddff",
+                        "surface-container-low": "#181c21",
+                        "surface-container-lowest": "#0a0e13",
+                        "tertiary-fixed-dim": "#ddb8ff",
+                        "secondary-fixed": "#d8e2ff",
+                        "error": "#ffb4ab",
+                        "on-surface": "#e0e2ea",
+                        "primary-container": "#a078ff",
+                        "outline-variant": "#464554",
+                        "surface-container-high": "#262a30",
+                        "on-primary": "#3c0091",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary-fixed": "#001a42",
+                        "primary-fixed-dim": "#d0bcff",
+                        "tertiary-container": "#b175ec",
+                        "outline": "#908fa0",
+                        "tertiary-fixed": "#f0dbff",
+                        "surface-tint": "#d0bcff",
+                        "on-secondary-container": "#e6ecff",
+                        "tertiary": "#ddb8ff",
+                        "on-tertiary-fixed-variant": "#62259b",
+                        "on-tertiary-fixed": "#2c0051",
+                        "background": "#101419",
+                        "inverse-on-surface": "#2d3136",
+                        "secondary-container": "#0566d9",
+                        "surface-container-highest": "#31353b",
+                        "surface-dim": "#101419",
+                        "on-tertiary": "#490081",
+                        "inverse-surface": "#e0e2ea",
+                        "on-surface-variant": "#c7c4d7",
+                        "on-tertiary-container": "#400071",
+                        "error-container": "#93000a",
+                        "on-primary-fixed-variant": "#5516be",
+                        "on-secondary": "#002e6a",
+                        "surface": "#101419",
+                        "surface-container": "#1c2025",
+                        "on-primary-container": "#340080",
+                        "surface-bright": "#36393f",
+                        "secondary": "#adc6ff",
+                        "on-background": "#e0e2ea",
+                        "secondary-fixed-dim": "#adc6ff",
+                        "surface-variant": "#31353b",
+                        "primary": "#d0bcff",
+                        "on-primary-fixed": "#23005c",
+                        "on-secondary-fixed-variant": "#004395",
+                        "on-error": "#690005"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #101419;
+            color: #e0e2ea;
+            font-family: 'Inter', sans-serif;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #464554;
+            border-radius: 10px;
+        }
+        .glass-panel {
+            background: rgba(38, 42, 48, 0.6);
+            backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+<body class="flex min-h-screen overflow-hidden">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full z-40 flex flex-col p-4 bg-[#0B0F14] dark:bg-[#0B0F14] h-screen w-64 border-r border-white/5">
+<div class="flex items-center gap-3 mb-10 px-2">
+<div class="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-xl" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<div class="flex flex-col">
+<span class="text-xl font-bold tracking-tighter text-indigo-400 font-headline">Marketa AI</span>
+<span class="text-[10px] uppercase tracking-widest text-slate-500 font-medium">Intelligence Interface</span>
+</div>
+</div>
+<nav class="flex-1 space-y-2">
+<!-- Clients (Inactive) -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-white/5 hover:text-white transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="text-sm font-semibold tracking-tight font-headline">Clients</span>
+</a>
+<!-- Campaigns (Active Selection for this screen) -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-indigo-500/10 text-indigo-400 shadow-[0_0_15px_rgba(99,102,241,0.2)] border border-indigo-500/20 transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="campaign">campaign</span>
+<span class="text-sm font-semibold tracking-tight font-headline">Campaigns</span>
+</a>
+<!-- AI Funnels -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-white/5 hover:text-white transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="filter_alt">filter_alt</span>
+<span class="text-sm font-semibold tracking-tight font-headline">AI Funnels</span>
+</a>
+<!-- Generate Content -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-white/5 hover:text-white transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+<span class="text-sm font-semibold tracking-tight font-headline">Generate Content</span>
+</a>
+<!-- Growth Ops -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-white/5 hover:text-white transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="insights">insights</span>
+<span class="text-sm font-semibold tracking-tight font-headline">Growth Ops</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 border-t border-white/5">
+<button class="w-full py-4 px-4 bg-gradient-to-r from-indigo-600 to-primary-container text-white rounded-xl font-headline font-bold text-sm shadow-lg shadow-indigo-500/20 active:scale-95 transition-transform">
+                New Campaign
+            </button>
+</div>
+</aside>
+<div class="flex-1 ml-64 flex flex-col min-h-screen">
+<!-- TopNavBar -->
+<header class="sticky top-0 w-full z-30 bg-[#0B0F14]/80 backdrop-blur-xl flex justify-between items-center h-16 px-8 border-b border-white/10 shadow-sm shadow-indigo-500/5">
+<div class="flex items-center gap-6">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm group-focus-within:text-indigo-400 transition-colors" data-icon="search">search</span>
+<input class="bg-surface-container-low border-none rounded-full pl-10 pr-4 py-2 text-sm w-64 focus:ring-1 focus:ring-indigo-500/50 focus:bg-surface-container transition-all" placeholder="Search campaign assets..." type="text"/>
+</div>
+<nav class="hidden md:flex gap-8 items-center h-full">
+<a class="text-slate-400 hover:text-indigo-300 transition-colors text-sm font-medium font-label" href="#">Overview</a>
+<a class="text-indigo-400 font-bold text-sm font-label" href="#">Copilot</a>
+<a class="text-slate-400 hover:text-indigo-300 transition-colors text-sm font-medium font-label" href="#">Analytics</a>
+<a class="text-slate-400 hover:text-indigo-300 transition-colors text-sm font-medium font-label" href="#">Assets</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-400 hover:text-indigo-400 transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-slate-400 hover:text-indigo-400 transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-white/10">
+<img class="w-full h-full object-cover" data-alt="professional portrait of a marketing director with soft studio lighting and neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7umbXsC04pA-i2HoeJJj1lyxD_3Y97ThuLmUqpgxwKzAUZ-m0KiYfSKOZfi7pH2vjVTB76eB0XGYmhrc8ZLzJAWXzQDRRqC28hhsXYcnm15p6rQoftBNy8JZq_oeuDTa3BjENPPO0fqUas0iWOT_7Id4178rq5Ze7HZeEMUXB4Zzg6wKvpiH31npV11cUNffFwIcAXbIGGX-jh_JtEnuzKCUVsrw1T_s9iq12W4VPboYavgwwBKclwrCcoSDQu7m68IRw8mV8CSdH"/>
+</div>
+</div>
+</header>
+<!-- Main Workspace Canvas -->
+<main class="flex-1 flex overflow-hidden">
+<!-- Chat Interface Section -->
+<section class="flex-1 flex flex-col bg-surface-dim relative">
+<!-- Chat Feed -->
+<div class="flex-1 overflow-y-auto p-8 space-y-8 custom-scrollbar">
+<!-- Day Marker -->
+<div class="flex justify-center">
+<span class="px-4 py-1 rounded-full bg-surface-container text-[10px] uppercase tracking-widest text-slate-500 font-bold">Today</span>
+</div>
+<!-- AI Message -->
+<div class="flex gap-4 max-w-3xl">
+<div class="w-10 h-10 rounded-xl bg-indigo-500/20 flex items-center justify-center shrink-0 border border-indigo-500/30">
+<span class="material-symbols-outlined text-indigo-400" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<div class="flex flex-col gap-2">
+<div class="bg-surface-container-high px-6 py-4 rounded-tr-3xl rounded-br-3xl rounded-bl-3xl border border-white/5">
+<p class="text-sm leading-relaxed text-on-surface">
+                                    Welcome back, Marketa. I've finished analyzing the Q4 performance for the <span class="text-indigo-400 font-semibold">"Neo-Futurist Apparel"</span> campaign. Your CTR is up by 12.4% following the last creative adjustment.
+                                </p>
+<p class="mt-4 text-sm leading-relaxed text-on-surface">
+                                    Would you like me to draft the LinkedIn copy for the upcoming capsule drop or should we focus on optimizing the ad spend distribution across Instagram?
+                                </p>
+</div>
+<span class="text-[10px] text-slate-500 ml-2">Marketa AI • 10:24 AM</span>
+</div>
+</div>
+<!-- User Message -->
+<div class="flex flex-row-reverse gap-4 max-w-3xl ml-auto">
+<div class="w-10 h-10 rounded-xl bg-surface-container-highest flex items-center justify-center shrink-0 border border-white/10">
+<img class="w-8 h-8 rounded-lg object-cover" data-alt="close up of user profile image" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8BzA5eZcn-ChXkUIxYzK5me4NMvJxLFI2HM7OGfv5hZd7sEbCr0FoTPHDd5CmHv57ghDEbOsyx_YdkSzKK0nohQ6xC78D04GStgku0m2na1BQJiOCmhMB-Bp6wL2xP1LwKd3olhTuXYpU0VTct2u6qdVS8FiflfSIK1Ps6m-Jo3Q_bJKJEa8QfFDlG3o6xBbi3UoWjAq07hlJsxEJnGlQNqL4Dyzx7OkZuRgsvNsNReS-Z9Kvb59AROk4RECZ3NXpv4AT3wOfygBK"/>
+</div>
+<div class="flex flex-col items-end gap-2">
+<div class="glass-panel px-6 py-4 rounded-tl-3xl rounded-bl-3xl rounded-br-3xl border border-white/10 shadow-lg">
+<p class="text-sm leading-relaxed text-white">
+                                    Let's start with the LinkedIn copy. Focus on the 'sustainable tech-fabrics' angle we discussed. Keep the tone sophisticated but urgent.
+                                </p>
+</div>
+<span class="text-[10px] text-slate-500 mr-2">You • 10:26 AM</span>
+</div>
+</div>
+<!-- AI Message (Content Generation) -->
+<div class="flex gap-4 max-w-4xl">
+<div class="w-10 h-10 rounded-xl bg-indigo-500/20 flex items-center justify-center shrink-0 border border-indigo-500/30">
+<span class="material-symbols-outlined text-indigo-400" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<div class="flex flex-col gap-4 flex-1">
+<div class="bg-surface-container-high px-6 py-5 rounded-tr-3xl rounded-br-3xl rounded-bl-3xl border border-white/5 space-y-4">
+<div class="flex items-center gap-2 mb-2">
+<span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+<span class="text-[10px] font-bold text-slate-400 tracking-tighter uppercase">Generated LinkedIn Draft</span>
+</div>
+<h4 class="font-headline font-bold text-indigo-300">The Future of Fabric is Circular. 🌿</h4>
+<p class="text-sm text-on-surface leading-relaxed italic border-l-2 border-indigo-500/30 pl-4">
+                                    "Innovation isn't just what you wear; it's how it's made. Introducing our Neo-Tech Capsule—where high-performance meets zero-waste. Designed for the urban explorer who refuses to compromise on the planet."
+                                </p>
+<div class="flex gap-2 pt-2">
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-highest text-[11px] font-bold flex items-center gap-2 border border-white/5 hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-xs" data-icon="content_copy">content_copy</span> Copy
+                                    </button>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-highest text-[11px] font-bold flex items-center gap-2 border border-white/5 hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-xs" data-icon="edit">edit</span> Refine
+                                    </button>
+</div>
+</div>
+<span class="text-[10px] text-slate-500 ml-2">Marketa AI • 10:27 AM</span>
+</div>
+</div>
+</div>
+<!-- Input Area -->
+<div class="p-8 pt-0">
+<div class="max-w-4xl mx-auto glass-panel p-2 rounded-3xl border border-white/10 shadow-2xl">
+<div class="flex items-end gap-2 px-4 py-2">
+<button class="p-2 text-slate-400 hover:text-indigo-400 transition-colors">
+<span class="material-symbols-outlined" data-icon="attachment">attachment</span>
+</button>
+<textarea class="flex-1 bg-transparent border-none text-on-surface placeholder:text-slate-500 focus:ring-0 resize-none py-2 text-sm min-h-[40px]" placeholder="Ask Marketa AI..." rows="1"></textarea>
+<button class="w-10 h-10 rounded-2xl bg-indigo-600 text-white flex items-center justify-center shadow-lg shadow-indigo-600/20 hover:scale-105 active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="arrow_upward">arrow_upward</span>
+</button>
+</div>
+<div class="flex items-center gap-4 px-4 pb-2">
+<div class="flex gap-2">
+<span class="px-2 py-1 rounded-md bg-white/5 text-[9px] text-slate-400 font-bold border border-white/5 cursor-pointer hover:bg-white/10">Analyze SEO</span>
+<span class="px-2 py-1 rounded-md bg-white/5 text-[9px] text-slate-400 font-bold border border-white/5 cursor-pointer hover:bg-white/10">Draft Variant</span>
+<span class="px-2 py-1 rounded-md bg-white/5 text-[9px] text-slate-400 font-bold border border-white/5 cursor-pointer hover:bg-white/10">Audience Pulse</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Sidebar (Campaign Context) -->
+<aside class="w-80 bg-surface-container-lowest border-l border-white/5 flex flex-col p-6 overflow-y-auto hidden xl:flex">
+<div class="mb-8">
+<h3 class="font-headline font-extrabold text-sm text-slate-200 tracking-tight mb-4">CAMPAIGN CONTEXT</h3>
+<div class="bg-surface-container-low rounded-2xl p-4 border border-white/5 space-y-4">
+<div>
+<span class="text-[10px] text-slate-500 font-bold uppercase tracking-widest block mb-1">Active Project</span>
+<p class="text-sm font-semibold text-indigo-400">Neo-Futurist Apparel Q4</p>
+</div>
+<div>
+<span class="text-[10px] text-slate-500 font-bold uppercase tracking-widest block mb-1">Brand Voice</span>
+<div class="flex flex-wrap gap-1 mt-2">
+<span class="px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 text-[10px] font-bold border border-indigo-500/20">Futuristic</span>
+<span class="px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 text-[10px] font-bold border border-indigo-500/20">Sustainable</span>
+</div>
+</div>
+<div class="pt-2">
+<span class="text-[10px] text-slate-500 font-bold uppercase tracking-widest block mb-2">KPI Health</span>
+<div class="w-full bg-surface-container-high rounded-full h-1.5 overflow-hidden">
+<div class="bg-indigo-500 h-full w-[78%] rounded-full shadow-[0_0_8px_rgba(99,102,241,0.5)]"></div>
+</div>
+<div class="flex justify-between mt-1">
+<span class="text-[9px] text-slate-500">Ad Efficiency</span>
+<span class="text-[9px] text-indigo-400 font-bold">78%</span>
+</div>
+</div>
+</div>
+</div>
+<div class="mb-8">
+<h3 class="font-headline font-extrabold text-sm text-slate-200 tracking-tight mb-4">SUGGESTED ACTIONS</h3>
+<div class="space-y-3">
+<button class="w-full p-3 rounded-xl bg-surface-container-low border border-white/5 text-left hover:bg-surface-container-high transition-colors group">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-indigo-500/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-indigo-400 text-lg" data-icon="auto_fix_high">auto_fix_high</span>
+</div>
+<div>
+<p class="text-xs font-bold text-on-surface">Auto-generate Image Prompts</p>
+<p class="text-[10px] text-slate-500">Based on LinkedIn copy</p>
+</div>
+</div>
+</button>
+<button class="w-full p-3 rounded-xl bg-surface-container-low border border-white/5 text-left hover:bg-surface-container-high transition-colors group">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-indigo-500/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-indigo-400 text-lg" data-icon="schedule">schedule</span>
+</div>
+<div>
+<p class="text-xs font-bold text-on-surface">Schedule Posting</p>
+<p class="text-[10px] text-slate-500">Optimized for peak engagement</p>
+</div>
+</div>
+</button>
+</div>
+</div>
+<div class="mt-auto">
+<div class="relative rounded-2xl overflow-hidden aspect-video group cursor-pointer">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="abstract digital waves in deep purple and cyan colors with futuristic grain and soft bokeh" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5Vt3fnWpwRCVkdyyAxeU32QaWt0VNcQk3LeW0FCSfoF4R63JEgDnSsv1qkfUlyeVRROKwyY20rcjYif7UW6oKeYzZLmjE0jrTIb-GNnbjsoLiEFlEl6jSjeCkXc7BzenatpVwU8w08si5iCDU_qOgpyVD0sRWMUiPsmzvB6L1JuypOqj6otPsDtVJ2JYOIg-BEvCJEUkHHcgoXWVT2Ai_p257wpinsikoWX_LWxekOUtDvLl62ryfPtbr1Cs0L4SL031y4-tUXSHr"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-4">
+<span class="text-[9px] font-bold text-indigo-400 uppercase tracking-widest mb-1">New Release</span>
+<p class="text-xs font-headline font-bold text-white">Visual Content Studio 2.0</p>
+</div>
+</div>
+</div>
+</aside>
+</main>
+</div>
+</body></html>

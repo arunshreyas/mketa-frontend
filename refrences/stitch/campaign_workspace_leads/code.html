@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-primary": "#6d3bd7",
+                    "primary-fixed": "#e9ddff",
+                    "surface-container-low": "#181c21",
+                    "surface-container-lowest": "#0a0e13",
+                    "tertiary-fixed-dim": "#ddb8ff",
+                    "secondary-fixed": "#d8e2ff",
+                    "error": "#ffb4ab",
+                    "on-surface": "#e0e2ea",
+                    "primary-container": "#a078ff",
+                    "outline-variant": "#464554",
+                    "surface-container-high": "#262a30",
+                    "on-primary": "#3c0091",
+                    "on-error-container": "#ffdad6",
+                    "on-secondary-fixed": "#001a42",
+                    "primary-fixed-dim": "#d0bcff",
+                    "tertiary-container": "#b175ec",
+                    "outline": "#908fa0",
+                    "tertiary-fixed": "#f0dbff",
+                    "surface-tint": "#d0bcff",
+                    "on-secondary-container": "#e6ecff",
+                    "tertiary": "#ddb8ff",
+                    "on-tertiary-fixed-variant": "#62259b",
+                    "on-tertiary-fixed": "#2c0051",
+                    "background": "#101419",
+                    "inverse-on-surface": "#2d3136",
+                    "secondary-container": "#0566d9",
+                    "surface-container-highest": "#31353b",
+                    "surface-dim": "#101419",
+                    "on-tertiary": "#490081",
+                    "inverse-surface": "#e0e2ea",
+                    "on-surface-variant": "#c7c4d7",
+                    "on-tertiary-container": "#400071",
+                    "error-container": "#93000a",
+                    "on-primary-fixed-variant": "#5516be",
+                    "on-secondary": "#002e6a",
+                    "surface": "#101419",
+                    "surface-container": "#1c2025",
+                    "on-primary-container": "#340080",
+                    "surface-bright": "#36393f",
+                    "secondary": "#adc6ff",
+                    "on-background": "#e0e2ea",
+                    "secondary-fixed-dim": "#adc6ff",
+                    "surface-variant": "#31353b",
+                    "primary": "#d0bcff",
+                    "on-primary-fixed": "#23005c",
+                    "on-secondary-fixed-variant": "#004395",
+                    "on-error": "#690005"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      body {
+        background-color: #101419;
+        color: #e0e2ea;
+        font-family: 'Inter', sans-serif;
+      }
+      .headline-font { font-family: 'Manrope', sans-serif; }
+      .glass-card {
+        background: rgba(49, 53, 59, 0.4);
+        backdrop-filter: blur(12px);
+      }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full z-40 flex flex-col p-4 bg-[#0B0F14] dark:bg-[#0B0F14] h-screen w-64 border-r border-white/5">
+<div class="mb-8 px-4 flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-lg" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<div>
+<h1 class="text-xl font-bold tracking-tighter text-indigo-400 headline-font">Marketa AI</h1>
+<p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Intelligence Interface</p>
+</div>
+</div>
+<nav class="flex flex-col gap-1 flex-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-white/5 hover:text-white transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="text-sm font-semibold tracking-tight headline-font">Clients</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-indigo-500/10 text-indigo-400 shadow-[0_0_15px_rgba(99,102,241,0.2)] border border-indigo-500/20 transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="campaign">campaign</span>
+<span class="text-sm font-semibold tracking-tight headline-font">Campaigns</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-white/5 hover:text-white transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="filter_alt">filter_alt</span>
+<span class="text-sm font-semibold tracking-tight headline-font">AI Funnels</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-white/5 hover:text-white transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+<span class="text-sm font-semibold tracking-tight headline-font">Generate Content</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-white/5 hover:text-white transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="insights">insights</span>
+<span class="text-sm font-semibold tracking-tight headline-font">Growth Ops</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 px-2">
+<button class="w-full py-4 rounded-xl bg-indigo-500 text-white font-bold text-sm shadow-lg shadow-indigo-500/20 active:scale-95 transition-transform">
+                New Campaign
+            </button>
+</div>
+</aside>
+<!-- Main Wrapper -->
+<div class="ml-64 min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="sticky top-0 w-full z-30 bg-[#0B0F14]/80 backdrop-blur-xl border-b border-white/10 flex justify-between items-center h-16 px-8 shadow-sm shadow-indigo-500/5">
+<div class="flex items-center flex-1 max-w-xl">
+<div class="relative w-full group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full pl-10 pr-4 py-2 text-sm focus:ring-1 focus:ring-indigo-500/50 transition-all outline-none text-on-surface" placeholder="Search leads, campaigns or insights..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="text-slate-400 hover:text-indigo-300 transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-indigo-500 rounded-full border-2 border-[#0B0F14]"></span>
+</button>
+<button class="text-slate-400 hover:text-indigo-300 transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="h-8 w-8 rounded-full overflow-hidden border border-white/10">
+<img alt="User Profile Avatar" class="w-full h-full object-cover" data-alt="close-up portrait of a professional man with sharp features looking confident in studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2A4PWUTqlYOngcIihmCG2WoXmHkeEcqn_bK8078hoR0RzUXlVpduyJ1Nqt3Xq01yhy8w_g25bPRT5ZiGPBQIhzR207JdcBPJbVZXm4OnQYIs-yl4EtsUx49MTmGQmDXmMjpeUqmuxbT3lZuqGygfPDtSS83oKjvh6ogDAOhLdghsGpon-t6nnB-A92rVmQtZzC98jghvdWcYC10e-wmfqtFChtw3Kta4u12iAJXXjgQFldCedxF_n--dJu069jTvfjYOJ5RgwGqmw"/>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<main class="flex-1 p-8 space-y-8">
+<!-- Workspace Sub-Navigation -->
+<div class="flex items-center gap-8 border-b border-white/5 pb-0">
+<a class="px-1 py-4 text-sm font-medium text-slate-400 hover:text-white transition-colors" href="#">Overview</a>
+<a class="px-1 py-4 text-sm font-bold text-indigo-400 border-b-2 border-indigo-400 transition-colors" href="#">Leads</a>
+<a class="px-1 py-4 text-sm font-medium text-slate-400 hover:text-white transition-colors" href="#">Creatives</a>
+<a class="px-1 py-4 text-sm font-medium text-slate-400 hover:text-white transition-colors" href="#">Automation</a>
+<a class="px-1 py-4 text-sm font-medium text-slate-400 hover:text-white transition-colors" href="#">Analytics</a>
+</div>
+<!-- Workspace Header -->
+<div class="flex justify-between items-end">
+<div class="space-y-1">
+<h2 class="text-4xl font-extrabold headline-font tracking-tight">Leads</h2>
+<p class="text-slate-400 text-sm">Managing 1,248 active opportunities across 4 campaigns.</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center bg-surface-container-low p-1 rounded-full border border-white/5">
+<button class="px-4 py-1.5 rounded-full text-xs font-semibold bg-surface-container-highest text-white shadow-sm">Qualification Pipeline</button>
+<button class="px-4 py-1.5 rounded-full text-xs font-semibold text-slate-400 hover:text-white transition-colors">List View</button>
+</div>
+<button class="flex items-center gap-2 px-6 py-2.5 rounded-full bg-surface-container-highest border border-outline-variant/30 text-on-surface hover:bg-surface-container-high transition-colors font-medium text-sm">
+<span class="material-symbols-outlined text-sm" data-icon="file_upload">file_upload</span>
+                        Import
+                    </button>
+</div>
+</div>
+<!-- Leads Table View -->
+<div class="bg-surface-container-low rounded-xl overflow-hidden border border-white/5">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-lowest/50 border-b border-white/5">
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest">Lead Name</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest">Status</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest">Source</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest">Engagement</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest text-right">Lead Score</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-white/5">
+<!-- Row 1 -->
+<tr class="group hover:bg-white/[0.02] transition-colors">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-400 font-bold text-xs">AM</div>
+<div>
+<div class="font-semibold text-on-surface">Alex Mercer</div>
+<div class="text-xs text-slate-500">alex@quantum-tech.io</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 rounded-full text-[10px] font-bold bg-error/10 text-error border border-error/20">Hot</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-500 text-sm" data-icon="rocket_launch">rocket_launch</span>
+<span class="text-sm text-slate-300">Campaign A</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex gap-1">
+<div class="w-6 h-1 rounded-full bg-indigo-500"></div>
+<div class="w-6 h-1 rounded-full bg-indigo-500"></div>
+<div class="w-6 h-1 rounded-full bg-indigo-500"></div>
+<div class="w-6 h-1 rounded-full bg-indigo-500/20"></div>
+</div>
+</td>
+<td class="px-6 py-5 text-right">
+<div class="inline-flex items-center px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 font-bold text-xs shadow-[0_0_10px_rgba(99,102,241,0.15)]">
+                                    98
+                                </div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="group hover:bg-white/[0.02] transition-colors">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-orange-500/20 flex items-center justify-center text-orange-400 font-bold text-xs">SW</div>
+<div>
+<div class="font-semibold text-on-surface">Sarah Wright</div>
+<div class="text-xs text-slate-500">s.wright@global-sys.com</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 rounded-full text-[10px] font-bold bg-secondary-container/10 text-secondary border border-secondary/20">Warm</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-500 text-sm" data-icon="search">search</span>
+<span class="text-sm text-slate-300">Organic Search</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex gap-1">
+<div class="w-6 h-1 rounded-full bg-indigo-500"></div>
+<div class="w-6 h-1 rounded-full bg-indigo-500/20"></div>
+<div class="w-6 h-1 rounded-full bg-indigo-500/20"></div>
+<div class="w-6 h-1 rounded-full bg-indigo-500/20"></div>
+</div>
+</td>
+<td class="px-6 py-5 text-right">
+<div class="inline-flex items-center px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 font-bold text-xs shadow-[0_0_10px_rgba(99,102,241,0.15)]">
+                                    74
+                                </div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="group hover:bg-white/[0.02] transition-colors">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-slate-500/20 flex items-center justify-center text-slate-400 font-bold text-xs">JK</div>
+<div>
+<div class="font-semibold text-on-surface">Jordan Kaine</div>
+<div class="text-xs text-slate-500">kaine@nexus-logic.co</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 rounded-full text-[10px] font-bold bg-surface-container-highest/50 text-slate-400 border border-white/10">Cold</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-500 text-sm" data-icon="campaign">campaign</span>
+<span class="text-sm text-slate-300">Campaign B</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex gap-1">
+<div class="w-6 h-1 rounded-full bg-indigo-500/10"></div>
+<div class="w-6 h-1 rounded-full bg-indigo-500/10"></div>
+<div class="w-6 h-1 rounded-full bg-indigo-500/10"></div>
+<div class="w-6 h-1 rounded-full bg-indigo-500/10"></div>
+</div>
+</td>
+<td class="px-6 py-5 text-right">
+<div class="inline-flex items-center px-3 py-1 rounded-full bg-indigo-500/5 border border-indigo-500/10 text-indigo-400/60 font-bold text-xs">
+                                    32
+                                </div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="group hover:bg-white/[0.02] transition-colors">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-400 font-bold text-xs">EP</div>
+<div>
+<div class="font-semibold text-on-surface">Elena Pavlova</div>
+<div class="text-xs text-slate-500">elena.p@soviet-scale.ru</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 rounded-full text-[10px] font-bold bg-error/10 text-error border border-error/20">Hot</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-500 text-sm" data-icon="rocket_launch">rocket_launch</span>
+<span class="text-sm text-slate-300">Campaign A</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex gap-1">
+<div class="w-6 h-1 rounded-full bg-indigo-500"></div>
+<div class="w-6 h-1 rounded-full bg-indigo-500"></div>
+<div class="w-6 h-1 rounded-full bg-indigo-500/20"></div>
+<div class="w-6 h-1 rounded-full bg-indigo-500/20"></div>
+</div>
+</td>
+<td class="px-6 py-5 text-right">
+<div class="inline-flex items-center px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 font-bold text-xs shadow-[0_0_10px_rgba(99,102,241,0.15)]">
+                                    89
+                                </div>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- Pagination Footer -->
+<div class="px-6 py-4 flex items-center justify-between bg-surface-container-lowest/30 border-t border-white/5">
+<span class="text-xs text-slate-500 font-medium tracking-tight">Showing 1 to 4 of 1,248 leads</span>
+<div class="flex gap-2">
+<button class="w-8 h-8 flex items-center justify-center rounded-lg border border-white/10 text-slate-400 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-sm">chevron_left</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg bg-indigo-500/20 border border-indigo-500/40 text-indigo-400 text-xs font-bold">1</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg border border-white/10 text-slate-400 hover:text-white transition-colors text-xs font-bold">2</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg border border-white/10 text-slate-400 hover:text-white transition-colors text-xs font-bold">3</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg border border-white/10 text-slate-400 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- AI Insight Widget (Bento Style) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="md:col-span-2 bg-gradient-to-br from-indigo-500/10 to-transparent p-6 rounded-xl border border-indigo-500/20 relative overflow-hidden">
+<div class="relative z-10 flex flex-col h-full justify-between gap-4">
+<div class="flex items-center gap-2 text-indigo-400">
+<span class="material-symbols-outlined" data-icon="auto_awesome" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="text-xs font-bold uppercase tracking-widest headline-font">AI Qualification Insight</span>
+</div>
+<h3 class="text-xl font-bold headline-font leading-tight">"Campaign A" is currently delivering 40% higher lead scores. Suggest increasing budget by 15% for the next 72 hours.</h3>
+<div class="flex gap-4">
+<button class="px-4 py-2 rounded-lg bg-indigo-500 text-white text-xs font-bold">Apply Optimized Budget</button>
+<button class="px-4 py-2 rounded-lg border border-white/10 text-slate-300 text-xs font-bold">View Detail Analysis</button>
+</div>
+</div>
+<!-- Decorative Background Image -->
+<div class="absolute right-0 bottom-0 w-64 h-full opacity-20 pointer-events-none">
+<img class="w-full h-full object-cover grayscale" data-alt="abstract digital connection network with purple and blue flowing nodes and glowing data points" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdFx-3NRRPbei6k3gYljNsnQjOYMXmQWVRcSGy9MzYAeK95MQ54HkfXT3_XR94xfaUE1qDO4ndl_wKvDXLDp3eTHPWzfxMU-srhP0Nc2ipMw3R1SOdeOwqTiqTXBlGMFtjCQvG5AH62i7RZX-IZEK0P-rHh7DC0nH2oqZRu-xZ7gkJIX-laRVKEnmwUCbdI_kiCVuwkEt6ccmAmLimSTHlleVnhwARKI3iJXfnHzyABZpIN3Fds0jf3PDV-fVoMSiJ8Pi9T3sscXls"/>
+</div>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl border border-white/5 flex flex-col justify-between">
+<div class="space-y-1">
+<p class="text-xs font-bold text-slate-500 uppercase tracking-widest">Pipeline Health</p>
+<div class="text-3xl font-extrabold headline-font text-on-surface">86.4%</div>
+</div>
+<div class="w-full bg-white/5 h-2 rounded-full overflow-hidden">
+<div class="bg-gradient-to-r from-indigo-500 to-primary w-[86%] h-full"></div>
+</div>
+<p class="text-xs text-slate-400">Stable conversion rate. No bottleneck detected in current funnel stages.</p>
+</div>
+</div>
+</main>
+</div>
+</body></html>
