@@ -38,6 +38,20 @@ const tabs: { id: WorkspaceTab; label: string }[] = [
   { id: "copilot", label: "Copilot" },
 ];
 
+type LooseRecord = Record<string, unknown>;
+
+function asRecord(value: unknown): LooseRecord | null {
+  return value && typeof value === "object" ? (value as LooseRecord) : null;
+}
+
+function asStringArray(value: unknown): string[] {
+  return Array.isArray(value) ? value.filter((item): item is string => typeof item === "string") : [];
+}
+
+function renderEmptyState(message: string) {
+  return <p className="text-slate-400 text-sm">{message}</p>;
+}
+
 function downloadIdeasCsv(campaignName: string, ideas: CampaignIdea[]) {
   const header = ["day", "platform", "hook", "angle", "rationale", "cta"];
   const rows = ideas.map((idea) => [
@@ -119,6 +133,11 @@ export default function CampaignWorkspacePage() {
       { label: "Duration", value: `${campaign.duration || 0} days` },
     ];
   }, [campaign]);
+
+  const funnelData = asRecord(campaign?.generatedFunnel);
+  const websiteData = asRecord(campaign?.generatedWebsite);
+  const flyerData = asRecord(campaign?.generatedFlyer);
+  const accountOptimizationData = asRecord(campaign?.generatedAccountOptimization);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -324,23 +343,76 @@ export default function CampaignWorkspacePage() {
           {!loading && activeTab === "funnel" ? (
             <section className="bg-surface-container-low rounded-3xl p-8 ghost-border">
               <h3 className="text-xl font-headline font-bold text-on-surface mb-6">Funnel</h3>
-              {campaign?.generatedFunnel ? (
-                <pre className="overflow-x-auto rounded-2xl bg-surface-container p-4 text-xs text-slate-300">
-                  {JSON.stringify(campaign.generatedFunnel, null, 2)}
-                </pre>
-              ) : (
-                <p className="text-slate-400 text-sm">No funnel output saved on this campaign yet.</p>
-              )}
+              {funnelData ? (
+                <div className="space-y-6">
+                  <div className="rounded-2xl border border-white/5 bg-surface-container p-5">
+                    <p className="text-[10px] uppercase tracking-[0.18em] text-slate-500 font-bold mb-2">Funnel Name</p>
+                    <h4 className="text-xl font-headline font-bold text-on-surface">
+                      {String(funnelData.funnel_name ?? "Generated Funnel")}
+                    </h4>
+                    <p className="mt-3 text-sm text-slate-400">
+                      {String(funnelData.target_audience ?? "Target audience not provided")}
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+                    {Array.isArray(funnelData.stages) ? (
+                      funnelData.stages.map((stage, index) => {
+                        const entry = asRecord(stage);
+                        return (
+                          <div key={`${entry?.stage ?? "stage"}-${index}`} className="rounded-2xl border border-white/5 bg-surface-container p-5">
+                            <p className="text-[10px] uppercase tracking-[0.18em] text-indigo-300 font-bold mb-3">
+                              {String(entry?.stage ?? `Stage ${index + 1}`)}
+                            </p>
+                            <p className="text-sm font-semibold text-on-surface mb-2">
+                              {String(entry?.channel ?? "No channel")}
+                            </p>
+                            <p className="text-sm text-slate-400 mb-3">{String(entry?.hook ?? "No hook")}</p>
+                            <span className="inline-flex rounded-full bg-indigo-500/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-indigo-300">
+                              {String(entry?.cta ?? "No CTA")}
+                            </span>
+                          </div>
+                        );
+                      })
+                    ) : (
+                      renderEmptyState("No funnel stages available yet.")
+                    )}
+                  </div>
+                </div>
+              ) : renderEmptyState("No funnel output saved on this campaign yet.")}
             </section>
           ) : null}
 
           {!loading && activeTab === "website" ? (
             <section className="bg-surface-container-low rounded-3xl p-8 ghost-border">
               <h3 className="text-xl font-headline font-bold text-on-surface mb-6">Website</h3>
-              {campaign?.generatedWebsite ? (
-                <pre className="overflow-x-auto rounded-2xl bg-surface-container p-4 text-xs text-slate-300">
-                  {JSON.stringify(campaign.generatedWebsite, null, 2)}
-                </pre>
+              {websiteData ? (
+                <div className="space-y-6">
+                  <div className="rounded-[2rem] border border-white/5 bg-gradient-to-br from-indigo-500/10 to-cyan-500/5 p-8">
+                    <p className="text-[10px] uppercase tracking-[0.18em] text-indigo-300 font-bold mb-3">Page Title</p>
+                    <h4 className="text-3xl font-headline font-bold text-on-surface">
+                      {String(websiteData.pageTitle ?? "Website direction")}
+                    </h4>
+                    <p className="mt-4 max-w-3xl text-sm leading-relaxed text-slate-300">
+                      {String(websiteData.summary ?? "No website summary generated yet.")}
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {(Array.isArray(websiteData.sections) ? websiteData.sections : []).map((section, index) => {
+                      const entry = asRecord(section);
+                      return (
+                        <div key={`${entry?.title ?? "section"}-${index}`} className="rounded-2xl border border-white/5 bg-surface-container p-5">
+                          <p className="text-sm font-semibold text-on-surface mb-2">{String(entry?.title ?? `Section ${index + 1}`)}</p>
+                          <p className="text-sm text-slate-400 mb-4">{String(entry?.description ?? "No description")}</p>
+                          <span className="inline-flex rounded-full bg-white/5 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-slate-300">
+                            {String(entry?.cta ?? "No CTA")}
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
               ) : (
                 <div className="space-y-3 text-sm text-slate-400">
                   <p>No website output saved on this campaign yet.</p>
@@ -354,26 +426,80 @@ export default function CampaignWorkspacePage() {
           {!loading && activeTab === "flyer" ? (
             <section className="bg-surface-container-low rounded-3xl p-8 ghost-border">
               <h3 className="text-xl font-headline font-bold text-on-surface mb-6">Flyer</h3>
-              {campaign?.generatedFlyer ? (
-                <pre className="overflow-x-auto rounded-2xl bg-surface-container p-4 text-xs text-slate-300">
-                  {JSON.stringify(campaign.generatedFlyer, null, 2)}
-                </pre>
-              ) : (
-                <p className="text-slate-400 text-sm">No flyer output saved on this campaign yet.</p>
-              )}
+              {flyerData ? (
+                <div className="space-y-6">
+                  <div className="rounded-[2rem] border border-white/5 bg-surface-container p-8">
+                    <p className="text-[10px] uppercase tracking-[0.18em] text-slate-500 font-bold mb-3">Headline</p>
+                    <h4 className="text-3xl font-headline font-bold text-on-surface">
+                      {String(flyerData.headline ?? "Generated Flyer")}
+                    </h4>
+                    <p className="mt-3 text-sm text-slate-400">{String(flyerData.subheadline ?? "No subheadline")}</p>
+                    <div className="mt-5 inline-flex rounded-full bg-indigo-500/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-indigo-300">
+                      {String(flyerData.cta ?? flyerData.offer ?? "No CTA")}
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {asStringArray(flyerData.copyBlocks).map((block, index) => (
+                      <div key={`copy-${index}`} className="rounded-2xl border border-white/5 bg-surface-container p-5 text-sm text-slate-300">
+                        {block}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : renderEmptyState("No flyer output saved on this campaign yet.")}
             </section>
           ) : null}
 
           {!loading && activeTab === "account" ? (
             <section className="bg-surface-container-low rounded-3xl p-8 ghost-border">
               <h3 className="text-xl font-headline font-bold text-on-surface mb-6">Account Optimization</h3>
-              {campaign?.generatedAccountOptimization ? (
-                <pre className="overflow-x-auto rounded-2xl bg-surface-container p-4 text-xs text-slate-300">
-                  {JSON.stringify(campaign.generatedAccountOptimization, null, 2)}
-                </pre>
-              ) : (
-                <p className="text-slate-400 text-sm">No account optimization output saved on this campaign yet.</p>
-              )}
+              {accountOptimizationData ? (
+                <div className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="rounded-2xl border border-white/5 bg-surface-container p-5">
+                      <p className="text-[10px] uppercase tracking-[0.18em] text-slate-500 font-bold mb-2">Profile Name</p>
+                      <p className="text-lg font-semibold text-on-surface">{String(accountOptimizationData.profileName ?? "No profile name")}</p>
+                    </div>
+                    <div className="rounded-2xl border border-white/5 bg-surface-container p-5">
+                      <p className="text-[10px] uppercase tracking-[0.18em] text-slate-500 font-bold mb-2">CTA Strategy</p>
+                      <p className="text-sm text-slate-300">{String(accountOptimizationData.ctaStrategy ?? "No CTA strategy")}</p>
+                    </div>
+                  </div>
+
+                  <div className="rounded-2xl border border-white/5 bg-surface-container p-5">
+                    <p className="text-[10px] uppercase tracking-[0.18em] text-slate-500 font-bold mb-2">Bio</p>
+                    <p className="text-sm text-slate-300">{String(accountOptimizationData.bio ?? "No bio recommendation")}</p>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="rounded-2xl border border-white/5 bg-surface-container p-5">
+                      <p className="text-[10px] uppercase tracking-[0.18em] text-slate-500 font-bold mb-3">Highlights</p>
+                      <div className="space-y-2 text-sm text-slate-300">
+                        {asStringArray(accountOptimizationData.highlights).map((item, index) => (
+                          <p key={`highlight-${index}`}>{item}</p>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="rounded-2xl border border-white/5 bg-surface-container p-5">
+                      <p className="text-[10px] uppercase tracking-[0.18em] text-slate-500 font-bold mb-3">Content Pillars</p>
+                      <div className="space-y-2 text-sm text-slate-300">
+                        {asStringArray(accountOptimizationData.contentPillars).map((item, index) => (
+                          <p key={`pillar-${index}`}>{item}</p>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="rounded-2xl border border-white/5 bg-surface-container p-5">
+                      <p className="text-[10px] uppercase tracking-[0.18em] text-slate-500 font-bold mb-3">Checklist</p>
+                      <div className="space-y-2 text-sm text-slate-300">
+                        {asStringArray(accountOptimizationData.optimizationChecklist).map((item, index) => (
+                          <p key={`check-${index}`}>{item}</p>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ) : renderEmptyState("No account optimization output saved on this campaign yet.")}
             </section>
           ) : null}
 
