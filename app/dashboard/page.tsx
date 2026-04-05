@@ -68,12 +68,15 @@ const DashboardPage = () => {
               </p>
             </div>
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 flex-wrap">
               <Button variant="secondary" size="md" onClick={() => window.location.reload()}>
                 Refresh
               </Button>
               <Button variant="secondary" size="md" onClick={() => router.push("/dashboard/clients")}>
-                View Clients
+                Open Clients
+              </Button>
+              <Button variant="secondary" size="md" onClick={() => router.push("/dashboard/campaigns")}>
+                Open Campaigns
               </Button>
               <Button variant="primary" size="md" onClick={() => router.push("/dashboard/copilot")}>
                 Global Copilot
@@ -228,6 +231,44 @@ const DashboardPage = () => {
                 )}
               </div>
             </div>
+          </section>
+
+          <section className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
+            <button
+              className="rounded-[2rem] border border-white/5 bg-surface-container-low p-8 text-left transition-colors hover:bg-surface-container"
+              onClick={() => router.push("/dashboard/clients")}
+              type="button"
+            >
+              <p className="text-[10px] uppercase tracking-[0.2em] text-slate-500 font-bold mb-3">Create Flow</p>
+              <h3 className="text-xl font-headline font-bold text-on-surface mb-2">Start With Clients</h3>
+              <p className="text-sm text-slate-400">
+                Create client records first so campaigns have a real owner and industry context.
+              </p>
+            </button>
+
+            <button
+              className="rounded-[2rem] border border-white/5 bg-surface-container-low p-8 text-left transition-colors hover:bg-surface-container"
+              onClick={() => router.push("/dashboard/campaigns")}
+              type="button"
+            >
+              <p className="text-[10px] uppercase tracking-[0.2em] text-slate-500 font-bold mb-3">Create Flow</p>
+              <h3 className="text-xl font-headline font-bold text-on-surface mb-2">Build Campaigns</h3>
+              <p className="text-sm text-slate-400">
+                Launch a new campaign from the dedicated create screen and jump straight into its workspace.
+              </p>
+            </button>
+
+            <button
+              className="rounded-[2rem] border border-white/5 bg-surface-container-low p-8 text-left transition-colors hover:bg-surface-container"
+              onClick={() => router.push("/dashboard/copilot")}
+              type="button"
+            >
+              <p className="text-[10px] uppercase tracking-[0.2em] text-slate-500 font-bold mb-3">Workspace</p>
+              <h3 className="text-xl font-headline font-bold text-on-surface mb-2">Use Copilot</h3>
+              <p className="text-sm text-slate-400">
+                Ask across campaigns globally or open a campaign workspace for campaign-specific assistance.
+              </p>
+            </button>
           </section>
         </main>
       </div>
