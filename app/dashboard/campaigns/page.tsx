@@ -43,12 +43,18 @@ export default function CampaignsPage() {
     }
 
     const [campaignData, clientData] = await Promise.all([fetchCampaigns(token), fetchClients(token)]);
+    const requestedClientId =
+      typeof window !== "undefined"
+        ? new URLSearchParams(window.location.search).get("clientId")
+        : null;
+    const matchedClient = clientData.find((client) => client._id === requestedClientId);
+    const defaultClient = matchedClient ?? clientData[0];
     setCampaigns(campaignData);
     setClients(clientData);
     setForm((current) => ({
       ...current,
-      client_id: current.client_id || clientData[0]?._id || "",
-      clientIndustry: current.clientIndustry || clientData[0]?.industry || "",
+      client_id: current.client_id || defaultClient?._id || "",
+      clientIndustry: current.clientIndustry || defaultClient?.industry || "",
     }));
   }
 

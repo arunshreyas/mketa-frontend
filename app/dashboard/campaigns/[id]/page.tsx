@@ -10,18 +10,61 @@ import {
   Campaign,
   CampaignChatMessage,
   CampaignIdea,
+  CampaignLead,
   fetchCampaign,
   fetchCampaignIdeas,
+  fetchCampaignLeads,
 } from "@/lib/api";
 import { getAuthToken } from "@/lib/auth";
 
-type WorkspaceTab = "overview" | "content" | "copilot";
+type WorkspaceTab =
+  | "overview"
+  | "content"
+  | "funnel"
+  | "website"
+  | "flyer"
+  | "account"
+  | "leads"
+  | "copilot";
 
 const tabs: { id: WorkspaceTab; label: string }[] = [
   { id: "overview", label: "Overview" },
   { id: "content", label: "Content" },
+  { id: "funnel", label: "Funnel" },
+  { id: "website", label: "Website" },
+  { id: "flyer", label: "Flyer" },
+  { id: "account", label: "Account" },
+  { id: "leads", label: "Leads" },
   { id: "copilot", label: "Copilot" },
 ];
+
+function downloadIdeasCsv(campaignName: string, ideas: CampaignIdea[]) {
+  const header = ["day", "platform", "hook", "angle", "rationale", "cta"];
+  const rows = ideas.map((idea) => [
+    idea.day ?? "",
+    idea.platform ?? "",
+    idea.hook ?? idea.idea ?? "",
+    idea.angle ?? "",
+    idea.rationale ?? idea.body ?? "",
+    idea.cta ?? "",
+  ]);
+
+  const csv = [header, ...rows]
+    .map((row) =>
+      row
+        .map((value) => `"${String(value).replace(/"/g, '""')}"`)
+        .join(","),
+    )
+    .join("\n");
+
+  const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = `${campaignName || "campaign"}-ideas.csv`;
+  link.click();
+  URL.revokeObjectURL(url);
+}
 
 export default function CampaignWorkspacePage() {
   const params = useParams<{ id: string }>();
@@ -31,6 +74,7 @@ export default function CampaignWorkspacePage() {
   const [activeTab, setActiveTab] = useState<WorkspaceTab>("overview");
   const [campaign, setCampaign] = useState<Campaign | null>(null);
   const [ideas, setIdeas] = useState<CampaignIdea[]>([]);
+  const [leads, setLeads] = useState<CampaignLead[]>([]);
   const [messages, setMessages] = useState<CampaignChatMessage[]>([
     {
       role: "assistant",
@@ -49,10 +93,15 @@ export default function CampaignWorkspacePage() {
       return;
     }
 
-    Promise.all([fetchCampaign(campaignId, token), fetchCampaignIdeas(campaignId, token)])
-      .then(([campaignData, ideaData]) => {
+    Promise.all([
+      fetchCampaign(campaignId, token),
+      fetchCampaignIdeas(campaignId, token),
+      fetchCampaignLeads(campaignId, token).catch(() => []),
+    ])
+      .then(([campaignData, ideaData, leadData]) => {
         setCampaign(campaignData);
         setIdeas(ideaData);
+        setLeads(leadData);
       })
       .catch((err) => setError(err instanceof Error ? err.message : "Failed to load campaign workspace"))
       .finally(() => setLoading(false));
@@ -123,22 +172,29 @@ export default function CampaignWorkspacePage() {
             <div>
               <button
                 className="mb-4 text-xs uppercase tracking-[0.2em] text-slate-500 hover:text-slate-300"
-                onClick={() => router.push("/dashboard")}
+                onClick={() => router.push("/dashboard/campaigns")}
                 type="button"
               >
-                Back to Campaign Hub
+                Back to Campaigns
               </button>
               <h2 className="text-4xl font-extrabold tracking-tight text-on-surface mb-2 font-headline">
                 {campaign?.campaignName ?? "Campaign Workspace"}
               </h2>
               <p className="text-slate-400 max-w-2xl font-medium text-sm">
-                Campaign-specific workspace for strategy context, content ideas, and AI copilot support.
+                Campaign-specific workspace with tabs for content, funnel direction, website context, leads, and copilot.
               </p>
             </div>
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 flex-wrap">
               <Button variant="secondary" size="md" onClick={() => router.push("/dashboard/copilot")}>
                 Global Copilot
+              </Button>
+              <Button
+                variant="secondary"
+                size="md"
+                onClick={() => downloadIdeasCsv(campaign?.campaignName ?? "campaign", ideas)}
+              >
+                Download Ideas CSV
               </Button>
               <Button variant="primary" size="md" onClick={() => window.location.reload()}>
                 Refresh Workspace
@@ -192,18 +248,20 @@ export default function CampaignWorkspacePage() {
               </div>
 
               <div className="bg-surface-container-low rounded-3xl p-8 ghost-border">
-                <h3 className="text-xl font-headline font-bold text-on-surface mb-6">Next Best Move</h3>
-                <div className="rounded-2xl border border-indigo-500/20 bg-indigo-500/5 p-5 mb-4">
-                  <p className="text-sm text-slate-200 leading-relaxed">
-                    {ideas.length > 0
-                      ? `This campaign already has ${ideas.length} content ideas. Open the Content tab to turn those into your execution plan, or use Copilot to refine hooks and CTAs.`
-                      : "This campaign does not have content ideas loaded yet. Once ideas exist, this workspace becomes the fastest path from strategy to execution."}
-                  </p>
-                </div>
-                <div className="space-y-3 text-sm text-slate-400">
-                  <p>1. Review the campaign context so messaging stays aligned.</p>
-                  <p>2. Use the Content tab to inspect hooks, angles, and rationale.</p>
-                  <p>3. Use Copilot when you want stronger hooks or clearer conversion copy.</p>
+                <h3 className="text-xl font-headline font-bold text-on-surface mb-6">Brand Context</h3>
+                <div className="space-y-4">
+                  <div className="rounded-2xl border border-white/5 bg-surface-container p-4">
+                    <p className="text-[10px] uppercase tracking-[0.18em] text-slate-500 font-bold mb-2">Positioning</p>
+                    <p className="text-sm text-slate-300">{campaign?.brandProfile?.positioning ?? "Not set yet"}</p>
+                  </div>
+                  <div className="rounded-2xl border border-white/5 bg-surface-container p-4">
+                    <p className="text-[10px] uppercase tracking-[0.18em] text-slate-500 font-bold mb-2">Voice</p>
+                    <p className="text-sm text-slate-300">{campaign?.brandProfile?.voice ?? "Not set yet"}</p>
+                  </div>
+                  <div className="rounded-2xl border border-white/5 bg-surface-container p-4">
+                    <p className="text-[10px] uppercase tracking-[0.18em] text-slate-500 font-bold mb-2">Website Goal</p>
+                    <p className="text-sm text-slate-300">{campaign?.websiteBrief?.websiteGoal ?? "Not set yet"}</p>
+                  </div>
                 </div>
               </div>
             </section>
@@ -212,9 +270,19 @@ export default function CampaignWorkspacePage() {
           {!loading && activeTab === "content" ? (
             <section className="bg-surface-container-low rounded-3xl overflow-hidden shadow-2xl shadow-black/20">
               <div className="p-6 flex items-center justify-between border-b border-white/5">
-                <h3 className="font-bold text-lg font-headline">Campaign Ideas</h3>
-                <div className="text-xs uppercase tracking-[0.2em] text-slate-500 font-bold">
-                  {ideas.length} ideas
+                <div>
+                  <h3 className="font-bold text-lg font-headline">Campaign Ideas</h3>
+                  <p className="text-sm text-slate-400 mt-1">Use download to export the table as CSV.</p>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="text-xs uppercase tracking-[0.2em] text-slate-500 font-bold">{ideas.length} ideas</div>
+                  <Button
+                    size="sm"
+                    variant="secondary"
+                    onClick={() => downloadIdeasCsv(campaign?.campaignName ?? "campaign", ideas)}
+                  >
+                    Download CSV
+                  </Button>
                 </div>
               </div>
 
@@ -241,13 +309,108 @@ export default function CampaignWorkspacePage() {
                         <tr key={idea.id ?? `${idea.day}-${index}`} className="hover:bg-white/[0.03] transition-all duration-300">
                           <td className="px-6 py-6 text-sm text-slate-300">{idea.day ?? index + 1}</td>
                           <td className="px-6 py-6 text-sm">{idea.platform ?? "-"}</td>
-                          <td className="px-6 py-6 text-sm text-on-surface font-medium">
-                            {idea.hook ?? idea.idea ?? "-"}
-                          </td>
+                          <td className="px-6 py-6 text-sm text-on-surface font-medium">{idea.hook ?? idea.idea ?? "-"}</td>
                           <td className="px-6 py-6 text-sm">{idea.angle ?? "-"}</td>
-                          <td className="px-6 py-6 text-sm text-slate-400">
-                            {idea.rationale ?? idea.body ?? "-"}
-                          </td>
+                          <td className="px-6 py-6 text-sm text-slate-400">{idea.rationale ?? idea.body ?? "-"}</td>
+                        </tr>
+                      ))
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          ) : null}
+
+          {!loading && activeTab === "funnel" ? (
+            <section className="bg-surface-container-low rounded-3xl p-8 ghost-border">
+              <h3 className="text-xl font-headline font-bold text-on-surface mb-6">Funnel</h3>
+              {campaign?.generatedFunnel ? (
+                <pre className="overflow-x-auto rounded-2xl bg-surface-container p-4 text-xs text-slate-300">
+                  {JSON.stringify(campaign.generatedFunnel, null, 2)}
+                </pre>
+              ) : (
+                <p className="text-slate-400 text-sm">No funnel output saved on this campaign yet.</p>
+              )}
+            </section>
+          ) : null}
+
+          {!loading && activeTab === "website" ? (
+            <section className="bg-surface-container-low rounded-3xl p-8 ghost-border">
+              <h3 className="text-xl font-headline font-bold text-on-surface mb-6">Website</h3>
+              {campaign?.generatedWebsite ? (
+                <pre className="overflow-x-auto rounded-2xl bg-surface-container p-4 text-xs text-slate-300">
+                  {JSON.stringify(campaign.generatedWebsite, null, 2)}
+                </pre>
+              ) : (
+                <div className="space-y-3 text-sm text-slate-400">
+                  <p>No website output saved on this campaign yet.</p>
+                  <p>Target audience: {campaign?.websiteBrief?.targetAudience ?? "Not set"}</p>
+                  <p>Primary CTA: {campaign?.websiteBrief?.primaryCTA ?? "Not set"}</p>
+                </div>
+              )}
+            </section>
+          ) : null}
+
+          {!loading && activeTab === "flyer" ? (
+            <section className="bg-surface-container-low rounded-3xl p-8 ghost-border">
+              <h3 className="text-xl font-headline font-bold text-on-surface mb-6">Flyer</h3>
+              {campaign?.generatedFlyer ? (
+                <pre className="overflow-x-auto rounded-2xl bg-surface-container p-4 text-xs text-slate-300">
+                  {JSON.stringify(campaign.generatedFlyer, null, 2)}
+                </pre>
+              ) : (
+                <p className="text-slate-400 text-sm">No flyer output saved on this campaign yet.</p>
+              )}
+            </section>
+          ) : null}
+
+          {!loading && activeTab === "account" ? (
+            <section className="bg-surface-container-low rounded-3xl p-8 ghost-border">
+              <h3 className="text-xl font-headline font-bold text-on-surface mb-6">Account Optimization</h3>
+              {campaign?.generatedAccountOptimization ? (
+                <pre className="overflow-x-auto rounded-2xl bg-surface-container p-4 text-xs text-slate-300">
+                  {JSON.stringify(campaign.generatedAccountOptimization, null, 2)}
+                </pre>
+              ) : (
+                <p className="text-slate-400 text-sm">No account optimization output saved on this campaign yet.</p>
+              )}
+            </section>
+          ) : null}
+
+          {!loading && activeTab === "leads" ? (
+            <section className="bg-surface-container-low rounded-3xl overflow-hidden shadow-2xl shadow-black/20">
+              <div className="p-6 flex items-center justify-between border-b border-white/5">
+                <h3 className="font-bold text-lg font-headline">Leads</h3>
+                <div className="text-xs uppercase tracking-[0.2em] text-slate-500 font-bold">{leads.length} leads</div>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr className="text-slate-500 text-[11px] font-bold uppercase tracking-widest border-b border-white/5 bg-surface-container/50">
+                      <th className="px-6 py-4">Lead</th>
+                      <th className="px-6 py-4">Source</th>
+                      <th className="px-6 py-4">Status</th>
+                      <th className="px-6 py-4">Temp</th>
+                      <th className="px-6 py-4">Score</th>
+                      <th className="px-6 py-4">Next Step</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-white/5">
+                    {leads.length === 0 ? (
+                      <tr>
+                        <td className="px-6 py-6 text-slate-400" colSpan={6}>
+                          No leads saved on this campaign yet.
+                        </td>
+                      </tr>
+                    ) : (
+                      leads.map((lead) => (
+                        <tr key={lead._id} className="hover:bg-white/[0.03] transition-all duration-300">
+                          <td className="px-6 py-6 text-sm text-on-surface font-medium">{lead.name ?? lead.handle ?? "Unnamed lead"}</td>
+                          <td className="px-6 py-6 text-sm">{lead.source}</td>
+                          <td className="px-6 py-6 text-sm">{lead.status}</td>
+                          <td className="px-6 py-6 text-sm">{lead.temperature}</td>
+                          <td className="px-6 py-6 text-sm">{lead.qualificationScore}</td>
+                          <td className="px-6 py-6 text-sm text-slate-400">{lead.nextStep ?? "-"}</td>
                         </tr>
                       ))
                     )}
@@ -262,10 +425,7 @@ export default function CampaignWorkspacePage() {
               <div className="bg-surface-container-low rounded-3xl p-6 ghost-border flex flex-col min-h-[620px]">
                 <div className="flex-1 overflow-y-auto space-y-5 pr-2">
                   {messages.map((message, index) => (
-                    <div
-                      key={`${message.role}-${index}`}
-                      className={`flex gap-4 max-w-4xl ${message.role === "user" ? "ml-auto flex-row-reverse" : ""}`}
-                    >
+                    <div key={`${message.role}-${index}`} className={`flex gap-4 max-w-4xl ${message.role === "user" ? "ml-auto flex-row-reverse" : ""}`}>
                       <div
                         className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border ${
                           message.role === "assistant"
@@ -304,9 +464,7 @@ export default function CampaignWorkspacePage() {
                       disabled={sending}
                       type="submit"
                     >
-                      <span className="material-symbols-outlined">
-                        {sending ? "progress_activity" : "arrow_upward"}
-                      </span>
+                      <span className="material-symbols-outlined">{sending ? "progress_activity" : "arrow_upward"}</span>
                     </button>
                   </div>
                 </form>
@@ -318,29 +476,19 @@ export default function CampaignWorkspacePage() {
                 </h3>
                 <div className="space-y-4">
                   <div className="rounded-2xl border border-white/5 bg-surface-container p-4">
-                    <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest block mb-1">
-                      Active Project
-                    </span>
-                    <p className="text-sm font-semibold text-indigo-400 font-headline">
-                      {campaign?.campaignName ?? "No campaign selected"}
-                    </p>
+                    <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest block mb-1">Active Project</span>
+                    <p className="text-sm font-semibold text-indigo-400 font-headline">{campaign?.campaignName ?? "No campaign selected"}</p>
                   </div>
                   <div className="rounded-2xl border border-white/5 bg-surface-container p-4">
-                    <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest block mb-1">
-                      Product
-                    </span>
+                    <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest block mb-1">Product</span>
                     <p className="text-sm text-slate-300">{campaign?.product ?? "-"}</p>
                   </div>
                   <div className="rounded-2xl border border-white/5 bg-surface-container p-4">
-                    <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest block mb-1">
-                      Objective
-                    </span>
+                    <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest block mb-1">Objective</span>
                     <p className="text-sm text-slate-300">{campaign?.objective ?? "-"}</p>
                   </div>
                   <div className="rounded-2xl border border-white/5 bg-surface-container p-4">
-                    <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest block mb-1">
-                      Idea Count
-                    </span>
+                    <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest block mb-1">Idea Count</span>
                     <p className="text-sm text-slate-300">{ideas.length}</p>
                   </div>
                 </div>

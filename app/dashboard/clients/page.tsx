@@ -213,18 +213,19 @@ export default function ClientsPage() {
                     <th className="px-6 py-4">Email</th>
                     <th className="px-6 py-4">Phone</th>
                     <th className="px-6 py-4">Industry</th>
+                    <th className="px-6 py-4">Action</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-white/5">
                   {loading ? (
                     <tr>
-                      <td className="px-8 py-6 text-slate-400" colSpan={4}>
+                      <td className="px-8 py-6 text-slate-400" colSpan={5}>
                         Loading clients...
                       </td>
                     </tr>
                   ) : clients.length === 0 ? (
                     <tr>
-                      <td className="px-8 py-6 text-slate-400" colSpan={4}>
+                      <td className="px-8 py-6 text-slate-400" colSpan={5}>
                         No clients yet.
                       </td>
                     </tr>
@@ -240,6 +241,15 @@ export default function ClientsPage() {
                           <span className="rounded-full bg-white/5 px-3 py-1 text-[10px] font-bold uppercase tracking-tight text-slate-300">
                             {client.industry}
                           </span>
+                        </td>
+                        <td className="px-6 py-6">
+                          <Button
+                            size="sm"
+                            variant="secondary"
+                            onClick={() => router.push(`/dashboard/campaigns?clientId=${client._id}`)}
+                          >
+                            Create Campaign
+                          </Button>
                         </td>
                       </tr>
                     ))

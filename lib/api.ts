@@ -21,6 +21,24 @@ export type Campaign = {
   clientIndustry?: string;
   brandName?: string;
   employeeId?: string;
+  brandProfile?: {
+    positioning?: string;
+    voice?: string;
+    visualDirection?: string;
+    differentiators?: string[];
+  } | null;
+  websiteBrief?: {
+    targetAudience?: string;
+    offerSummary?: string;
+    keyBenefits?: string[];
+    primaryCTA?: string;
+    websiteGoal?: string;
+    desiredSections?: string[];
+  } | null;
+  generatedFunnel?: Record<string, unknown> | null;
+  generatedWebsite?: Record<string, unknown> | null;
+  generatedFlyer?: Record<string, unknown> | null;
+  generatedAccountOptimization?: Record<string, unknown> | null;
   createdAt?: string;
   updatedAt?: string;
 };
@@ -63,6 +81,24 @@ export type CampaignIdea = {
   cta?: string;
   angle?: string;
   rationale?: string;
+};
+
+export type CampaignLead = {
+  _id: string;
+  name?: string;
+  handle?: string;
+  email?: string;
+  phone?: string;
+  source: string;
+  platform?: string;
+  message?: string;
+  intentSignal?: string;
+  notes?: string;
+  status: string;
+  temperature: string;
+  qualificationScore: number;
+  qualificationSummary?: string;
+  nextStep?: string;
 };
 
 export type CampaignChatMessage = {
@@ -153,4 +189,9 @@ export async function askCampaignChat(
   });
 
   return parseJson<{ reply?: string; message?: string; content?: string }>(response);
+}
+
+export async function fetchCampaignLeads(campaignId: string, token: string) {
+  const response = await authorizedFetch(`/campaigns/${campaignId}/leads`, token);
+  return parseJson<CampaignLead[]>(response);
 }
