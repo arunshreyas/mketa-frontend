@@ -1,5 +1,19 @@
 export const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://127.0.0.1:3001/api";
+const INSTAGRAM_CLIENT_ID =
+  process.env.NEXT_PUBLIC_INSTAGRAM_CLIENT_ID ?? "2684275055283270";
+const INSTAGRAM_REDIRECT_URI =
+  process.env.NEXT_PUBLIC_INSTAGRAM_REDIRECT_URI ??
+  "https://mketa-frontend.vercel.app/auth/instagram/callback";
+const INSTAGRAM_SCOPE =
+  process.env.NEXT_PUBLIC_INSTAGRAM_SCOPE ??
+  [
+    "instagram_business_basic",
+    "instagram_business_manage_messages",
+    "instagram_business_manage_comments",
+    "instagram_business_content_publish",
+    "instagram_business_manage_insights",
+  ].join(",");
 
 export type AuthResponse = {
   token: string;
@@ -140,14 +154,20 @@ export async function authorizedFetch(path: string, token: string, init?: Reques
   });
 }
 
-export async function fetchCampaigns(token: string) {
-  const response = await authorizedFetch("/campaigns", token);
+export async function fetchCampaigns(token: string, clientId?: string) {
+  const query = clientId ? `?client_id=${encodeURIComponent(clientId)}` : "";
+  const response = await authorizedFetch(`/campaigns${query}`, token);
   return parseJson<Campaign[]>(response);
 }
 
 export async function fetchClients(token: string) {
   const response = await authorizedFetch("/clients", token);
   return parseJson<Client[]>(response);
+}
+
+export async function fetchClient(clientId: string, token: string) {
+  const response = await authorizedFetch(`/clients/${clientId}`, token);
+  return parseJson<Client>(response);
 }
 
 export async function createClient(payload: CreateClientPayload, token: string) {
@@ -194,4 +214,20 @@ export async function askCampaignChat(
 export async function fetchCampaignLeads(campaignId: string, token: string) {
   const response = await authorizedFetch(`/campaigns/${campaignId}/leads`, token);
   return parseJson<CampaignLead[]>(response);
+}
+
+export function getInstagramBusinessLoginUrl(state?: string) {
+  const params = new URLSearchParams({
+    force_reauth: "true",
+    client_id: INSTAGRAM_CLIENT_ID,
+    redirect_uri: INSTAGRAM_REDIRECT_URI,
+    response_type: "code",
+    scope: INSTAGRAM_SCOPE,
+  });
+
+  if (state) {
+    params.set("state", state);
+  }
+
+  return `https://www.instagram.com/oauth/authorize?${params.toString()}`;
 }

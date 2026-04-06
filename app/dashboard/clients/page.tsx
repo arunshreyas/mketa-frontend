@@ -243,6 +243,14 @@ export default function ClientsPage() {
                           </span>
                         </td>
                         <td className="px-6 py-6">
+                          <div className="flex items-center gap-2">
+                            <Button
+                              size="sm"
+                              variant="secondary"
+                              onClick={() => router.push(`/dashboard/clients/${client._id}`)}
+                            >
+                              Open
+                            </Button>
                           <Button
                             size="sm"
                             variant="secondary"
@@ -250,6 +258,7 @@ export default function ClientsPage() {
                           >
                             Create Campaign
                           </Button>
+                          </div>
                         </td>
                       </tr>
                     ))
